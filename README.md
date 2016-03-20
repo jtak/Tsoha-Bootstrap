@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://jttakkin.users.cs.helsinki.fi/)
+* [Linkki sovellukseeni](https://jttakkin.users.cs.helsinki.fi/tsoha)
 * [Linkki dokumentaatiooni](doc/Dokumentaatio.pdf)
 
 ## Työn aihe
