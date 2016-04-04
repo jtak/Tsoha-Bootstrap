@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Sushi on hyvää</h2>
+
+<div>
+  <form>
+   <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Valinta</th>
+          <th>Valitse (tähän tulee vielä nätimpi nappula joskus)</th>
+          <th>Lisätieto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kyllä</td>
+          <td><input type="radio" name="vote" value="1"></td>
+          <td>On hyvää!</td>
+        </tr>
+        <tr>
+          <td>Nojaa</td>
+          <td><input type="radio" name="vote" value="2"></td>
+          <td>Kyllähän sitä syö</td>
+        </tr>
+        <tr>
+          <td>Ei</td>
+          <td><input type="radio" name="vote" value="3"></td>
+          <td>Yäk!</td>
+        </tr>
+      </tbody>
+    </table>
+    <input class="btn btn-primary" type="submit" value="Äänestä!"> 
+  </form>
+</div>
+<br>
+<h2>Kuvaus</h2>
+<div class="votedescription">
+  Onko sushi hyvää vai ei? Jos tulos on sushin puolesta, saatan tarjota joskus sushit, jos ei niin ette saa mitään!
+</div>
+
+
+{% endblock %}

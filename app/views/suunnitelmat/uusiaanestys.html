@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h2>Luo uusi äänestys</h2>
+  <div>
+    <form>
+      <div>
+        <h3>Perustiedot</h3>
+        Aihe:<br>
+        <input class="form-control" type="text" placeholder="Sushi on hyvää!">
+        Äänestys alkaa:<br>
+        <input class="form-control" type="date" placeholder="01.04.2016">
+        Äänestys päättyy:<br>
+        <input class="form-control" type="date" placeholder="30.04.2016">
+      </div>
+      <div class="votelist">
+        <h3>Äänestysvaihtoehdot</h3>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Valinta</th>
+              <th>Lisätieto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input class="form-control" type="text" placeholder="Kyllä"></td>
+              <td><input class="form-control" type="text" placeholder="Lisätietoja vaihtoehdosta"></td>
+            </tr>
+            <tr>
+              <td><input class="form-control" type="text" placeholder="Ei"></td>
+              <td><input class="form-control" type="text" placeholder="Lisätietoja vaihtoehdosta"></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-default">Lisää rivi</button>
+      </div>
+      <h3>Kuvaus</h3>
+      <textarea name="description" rows="10" cols="100">
+        Onko sushi hyvää?
+      </textarea>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Tallenna ja luo äänestys"> 
+    </form>
+  </div>
+
+
+
+{% endblock %}

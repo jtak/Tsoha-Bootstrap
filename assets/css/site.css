@@ -8,3 +8,21 @@
   max-width: 1200px;
   margin: 0px auto;
 }
+
+div.loginbox {
+	width: 30%;
+	min-width: 300px;
+	max-width: 800px;
+}
+
+div.votelist {
+	width = 60%;
+	min-width: 700px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+div.votedescription {
+	border: 1px solid #ddd;
+	padding: 10px;
+}

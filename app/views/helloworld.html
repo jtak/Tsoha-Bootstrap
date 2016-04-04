@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h2>Tervetuloa äänestämään</h2>
+      <h3>Kirjaudu sisään</h3>
+        <div class="loginbox">
+      <form action="post" method="/">
+          Kayttäjätunnus
+          <br>
+          <input class="form-control" type="text" name="username" maxlength="30">
+          <br>
+          Salasana
+          <br>
+          <input class="form-control" type="text" name="password">
+          <br>
+          <input class="btn btn-default" type="submit" value="Kirjaudu">
+      </form>
+    </div>
+
+     <div class="votelist">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Äänestys</th>
+          <th>Alkaa</th>
+          <th>Loppuu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="/äänestys/sushi">Sushi on hyvää</a></td>
+          <td>01.04.2016</td>
+          <td>31.04.2016</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <h2>Sushi on hyvää</h2>
+
+  <div>
+    <form>
+     <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Valinta</th>
+            <th>Valitse (tähän tulee vielä nätimpi nappula joskus)</th>
+            <th>Lisätieto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Kyllä</td>
+            <td><input type="radio" name="vote" value="1"></td>
+            <td>On hyvää!</td>
+          </tr>
+          <tr>
+            <td>Nojaa</td>
+            <td><input type="radio" name="vote" value="2"></td>
+            <td>Kyllähän sitä syö</td>
+          </tr>
+          <tr>
+            <td>Ei</td>
+            <td><input type="radio" name="vote" value="3"></td>
+            <td>Yäk!</td>
+          </tr>
+        </tbody>
+      </table>
+      <input class="btn btn-primary" type="submit" value="Äänestä!"> 
+    </form>
+    </div>
+    <br>
+    <h2>Kuvaus</h2>
+  <div class="votedescription">
+    Onko sushi hyvää vai ei? Jos tulos on sushin puolesta, saatan tarjota joskus sushit, jos ei niin ette saa mitään!
+  </div>
+  <br>
+
+  <h2>Luo uusi äänestys</h2>
+  <div>
+    <form>
+      <div>
+        <h3>Perustiedot</h3>
+        Aihe:<br>
+        <input class="form-control" type="text" placeholder="Sushi on hyvää!">
+        Äänestys alkaa:<br>
+        <input class="form-control" type="date" placeholder="01.04.2016">
+        Äänestys päättyy:<br>
+        <input class="form-control" type="date" placeholder="30.04.2016">
+      </div>
+      <div class="votelist">
+        <h3>Äänestysvaihtoehdot</h3>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Valinta</th>
+              <th>Lisätieto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input class="form-control" type="text" placeholder="Kyllä"></td>
+              <td><input class="form-control" type="text" placeholder="Lisätietoja vaihtoehdosta"></td>
+            </tr>
+            <tr>
+              <td><input class="form-control" type="text" placeholder="Ei"></td>
+              <td><input class="form-control" type="text" placeholder="Lisätietoja vaihtoehdosta"></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-default">Lisää rivi</button>
+      </div>
+      <h3>Kuvaus</h3>
+      <textarea name="description" rows="10" cols="100">
+        Onko sushi hyvää?
+      </textarea>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Tallenna ja luo äänestys"> 
+    </form>
+  </div>
+
+
+{% endblock %}
