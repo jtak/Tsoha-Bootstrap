@@ -4,8 +4,9 @@
   <h2>Luo uusi äänestys</h2>
   <div>
     <form>
-      <div>
-        <h3>Perustiedot</h3>
+    <h3>Perustiedot</h3>
+    <div class="newvote">
+      <div class="basicinfo">
         Aihe:<br>
         <input class="form-control" type="text" placeholder="Sushi on hyvää!">
         Äänestys alkaa:<br>
@@ -13,6 +14,12 @@
         Äänestys päättyy:<br>
         <input class="form-control" type="date" placeholder="30.04.2016">
       </div>
+      <div class="votesettings">
+        <input type="radio" name="type" value="1">Tavallinen<br>
+        <input type="radio" name="type" value="1">Koko tilanne näkyvissä<br>
+        <input type="radio" name="type" value="1">Johtava vaihtoehto näkyvissä<br>
+      </div>
+    </div>
       <div class="votelist">
         <h3>Äänestysvaihtoehdot</h3>
         <table class="table table-bordered table-striped">
@@ -36,8 +43,7 @@
         <button class="btn btn-default">Lisää rivi</button>
       </div>
       <h3>Kuvaus</h3>
-      <textarea name="description" rows="10" cols="100">
-        Onko sushi hyvää?
+      <textarea name="description" rows="10" cols="100">Onko sushi hyvää?
       </textarea>
       <br>
       <input class="btn btn-primary" type="submit" value="Tallenna ja luo äänestys"> 
