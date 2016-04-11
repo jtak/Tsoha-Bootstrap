@@ -13,6 +13,7 @@ Yleisiä linkkejä:
 * Laajempi versio, sisältää kirjautumisen, käyttäjähallinnan ja identifioidun äänestyksen
 
 ## Mallisivut
+
 * [Etusivu](http://jttakkin.users.cs.helsinki.fi/tsoha/suunnitelmat/etusivu)
 * [Listaus](http://jttakkin.users.cs.helsinki.fi/tsoha/suunnitelmat/listaus)
 * [Äänestyssivu](http://jttakkin.users.cs.helsinki.fi/tsoha/suunnitelmat/aanestys)
