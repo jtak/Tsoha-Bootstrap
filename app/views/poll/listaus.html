@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="votelist">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Äänestys</th>
+          <th>Alkaa</th>
+          <th>Loppuu</th>
+          <th>Tila</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for poll in polls %}
+            {% if not poll.piilotettu %}
+            <tr>
+                <td><a href="{{base_path}}/aanestys/details/{{poll.id}}">{{poll.aihe}}</a></td>
+                <td>{{poll.alkupvm}}</td>
+                <td>{{poll.loppupvm}}</td>
+                <td class="voted">Äänestetty</td>
+            </tr>
+            {% else %}
+            {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

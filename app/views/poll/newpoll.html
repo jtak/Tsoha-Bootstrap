@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h2>Luo uusi äänestys</h2>
+  <div>
+    <form method="post" action="{{base_path}}/poll">
+    <h3>Perustiedot</h3>
+    <div class="newvote">
+      <div class="basicinfo">
+        Aihe:<br>
+        <input name="aihe" class="form-control" type="text" placeholder="Sushi on hyvää!">
+        Äänestys alkaa:<br>
+        <input name="alkupvm" class="form-control" type="date">
+        Äänestys päättyy:<br>
+        <input name="loppupvm" class="form-control" type="date">
+      </div>
+      <div class="votesettings">
+        <input type="radio" name="tyyppi" value="1" checked>Tavallinen<br>
+        <input type="radio" name="tyyppi" value="1">Koko tilanne näkyvissä<br>
+        <input type="radio" name="tyyppi" value="1">Johtava vaihtoehto näkyvissä<br>
+      </div>
+    </div>
+      <h3>Kuvaus</h3>
+      <textarea name="kuvaus" rows="10" cols="100">Onko sushi hyvää?
+      </textarea>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Tallenna ja luo äänestys"> 
+    </form>
+  </div>
+
+
+
+{% endblock %}

@@ -17,3 +17,9 @@ Yleisiä linkkejä:
 * [Listaus](http://jttakkin.users.cs.helsinki.fi/tsoha/suunnitelmat/listaus)
 * [Äänestyssivu](http://jttakkin.users.cs.helsinki.fi/tsoha/suunnitelmat/aanestys)
 * [Uusi äänestys](http://jttakkin.users.cs.helsinki.fi/tsoha/suunnitelmat/uusi)
+
+
+## Toimivat testaussivut
+* [Äänestysten listaus](https://jttakkin.users.cs.helsinki.fi/tsoha/aanestys/listaus)
+* Listaussivun linkit vievät tarkastelemaan äänestyksen tietoja
+* [Uuden äänestyksen luonti](https://jttakkin.users.cs.helsinki.fi/tsoha/aanestys/uusi)

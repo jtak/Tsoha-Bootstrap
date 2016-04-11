@@ -1,5 +1,9 @@
 <?php
 
+  $routes->post('/poll', function(){
+      PollController::store();
+  });
+
   $routes->get('/', function() {
     HelloWorldController::index();
   });
@@ -11,7 +15,18 @@
   $routes->get('/testimaa-keskimaa', function(){
     HelloWorldController::sandbox2();
   });
+  
+  $routes->get('/aanestys/listaus', function(){
+      PollController::index();
+  });
+   $routes->get('/aanestys/details/:id', function($id){
+       PollController::details($id);
+   });
 
+   $routes->get('/aanestys/uusi', function(){
+       PollController::newpoll();
+   });
+   
   $routes->get('/suunnitelmat/etusivu', function(){
   	HelloWorldController::etusivu();
   });

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{poll.aihe}}</h2>
+
+<div>
+  <form>
+   <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Valinta</th>
+          <th>Valitse (tähän tulee vielä nätimpi nappula joskus)</th>
+          <th>Lisätieto</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for option in options %}
+            <tr>
+                <td>{{option.name}}</td>
+                <td><input type="radio" name="vote" value="{{option.id}}"></td>
+                <td>{{option.description}}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+    <input class="btn btn-primary" type="submit" value="Äänestä!"> 
+  </form>
+</div>
+<br>
+<h2>Kuvaus</h2>
+<div class="votedescription">
+{{poll.kuvaus}}
+</div>
+
+
+{% endblock %}

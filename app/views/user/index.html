@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="votelist">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>User id</th>
+          <th>Username</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td><a href="{{{base_path}}/user/view/{{user.id}}">{{user.kayttajanimi}}</a></td>
+                <td>{{user.salasana}}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
