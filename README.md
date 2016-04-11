@@ -21,6 +21,6 @@ Yleisiä linkkejä:
 
 
 ## Toimivat testaussivut
-* [Äänestysten listaus](https://jttakkin.users.cs.helsinki.fi/tsoha/aanestys/listaus)
+* [Äänestysten listaus](https://jttakkin.users.cs.helsinki.fi/tsoha/aanestys/listaus)
 * Listaussivun linkit vievät tarkastelemaan äänestyksen tietoja
 * [Uuden äänestyksen luonti](https://jttakkin.users.cs.helsinki.fi/tsoha/aanestys/uusi)
