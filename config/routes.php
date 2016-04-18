@@ -1,13 +1,21 @@
 <?php
 
-  $routes->post('/poll', function(){
+  $routes->get('/login', function(){
+    UserController::login();
+  });
+
+  $routes->post('/login', function(){
+    UserController::handle_login();
+  });
+
+  $routes->post('/newpoll', function(){
       PollController::store();
   });
-
+  
   $routes->get('/', function() {
-    HelloWorldController::index();
+    BaseController::check_logged_in(); //HelloWorldController::index();
   });
-
+  
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

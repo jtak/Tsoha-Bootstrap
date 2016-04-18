@@ -29,7 +29,7 @@ class User extends BaseModel {
         foreach ($rows as $row) {
             $users[] = new User(array(
                 'id' => $row['id'],
-                'username' => $row['kayttajanimi'],
+                'username' => $row['kayttajatunnus'],
                 'password' => $row['salasana']
             ));
         }
@@ -44,7 +44,7 @@ class User extends BaseModel {
         if($row){
             $user = new User(array(
                 'id' => $row['id'],
-                'username' => $row['kayttajanimi'],
+                'username' => $row['kayttajatunnus'],
                 'password' => $row['salasana']
             ));
             
@@ -52,5 +52,23 @@ class User extends BaseModel {
         }
         return null;
         
+    }
+
+    public static function authenticate($username, $password){
+        $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE kayttajatunnus = :username AND salasana = :password LIMIT 1');
+        $query->execute(array('username' => $username, 'password' => $password));
+        $row = $query->fetch();
+
+        if($row){
+            $user = new User(array(
+                'id' => $row['id'],
+                'username' => $row['kayttajatunnus'],
+                'password' => $row['salasana']
+            ));
+
+            return $user;
+        } else {
+            return null; //virhe
+        }
     }
 }

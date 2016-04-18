@@ -33,7 +33,7 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Tsoha Bootstrap</a>
+          <a class="navbar-brand" href="{{base_path}}">Käppä-äänestys</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation">
@@ -42,6 +42,9 @@
             <li><a href="{{base_path}}">Etusivu</a></li>
           </ul>
         </div>
+        {% if user_logged_in %}
+            <div style="color: grey">Kirjautuneena käyttäjätunnuksella {{user_logged_in.username}}</div>
+        {% endif %}
       </div>
     </nav>
 

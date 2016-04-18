@@ -1,7 +1,7 @@
 -- Lisää INSERT INTO lauseet tähän tiedostoon
 -- Kayttajat:
-INSERT INTO Kayttaja (kayttajatunnus, salasana) VALUES ('Make', 'make1234');
-INSERT INTO Kayttaja (kayttajatunnus, salasana) VALUES ('Viljami', 'viljami1234');
+INSERT INTO Kayttaja (kayttajatunnus, salasana) VALUES ('Make', 'make1234'); -- make1234
+INSERT INTO Kayttaja (kayttajatunnus, salasana) VALUES ('Viljami', 'viljami1234');   -- viljami1234
 
 -- Aanestykset:
 INSERT INTO Aanestys (tekija, aihe, kuvaus, alkupvm, loppupvm) VALUES (1, 'Suurin suurhenkilö', 'Kuka on mielestäsi suurin suurmies koskaan?', '2016-04-01', '2016-05-15');

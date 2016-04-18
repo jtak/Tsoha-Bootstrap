@@ -2,7 +2,7 @@
 CREATE TABLE Kayttaja (
 	id SERIAL PRIMARY KEY,
 	kayttajatunnus varchar(20) NOT NULL UNIQUE,
-	salasana varchar(100) NOT NULL
+	salasana varchar(255) NOT NULL   
 );
 
 CREATE TABLE Aanestys (

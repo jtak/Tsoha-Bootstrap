@@ -21,9 +21,28 @@
 
       foreach($this->validators as $validator){
         // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
+        $validator_errors = $this->{$validator}();
+        $errors = array_merge($errors, $validator_errors);
       }
 
       return $errors;
+    }
+
+    public function validate_string_length($str, $length){
+      if(mb_strlen($str) < 1){
+          return false;
+      } else if(mb_strlen($str) > $length) {
+        return false;
+      }
+        return true;
+    }
+
+    public function validate_date($date, $format = 'Y-m-d'){
+      if(!$date){
+        return false;
+      }
+      $d = DateTime::createFromFormat($format, $date);
+      return $d && $d->format($format) == $date;
     }
 
   }

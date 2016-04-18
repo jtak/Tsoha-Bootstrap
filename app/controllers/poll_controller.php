@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Description of poll_controller
@@ -40,10 +35,41 @@ class PollController extends BaseController {
                 'piilotettu' => 'false',
                 'tyyppi' => $params['tyyppi']
             ));
-        
-        $poll->save();
-        
-        Redirect::to('/aanestys/listaus');
+        $errors = $poll->errors();
+        if(count($errors) == 0){
+            $poll->save();
+            Redirect::to('/aanestys/listaus');
+        } else {
+            View::make('poll/newpoll.html', array('errors' => $errors, 'attributes' => $params));
+        }
     }
     
+    public static function edit($id){
+        $poll = Aanestys::find($id);
+        View::make('poll/edit.html', array('attributes' => $poll));
+    }
+
+    public static function update($id){
+        $params = $_POST;
+        
+        $poll = new Aanestys(array(
+                'id' => $id,
+                'tekija' => 1,
+                'aihe' => $params['aihe'],
+                'kuvaus' => $params['kuvaus'],
+                'alkupvm' => $params['alkupvm'],
+                'loppupvm' => $params['loppupvm'],
+                'piilotettu' => 'false',
+                'tyyppi' => $params['tyyppi']
+            ));
+        $errors = $poll->errors();
+        if(count($errors) == 0){
+            $poll->save();
+            Redirect::to('/aanestys/listaus');
+        } else {
+            View::make('poll/edit.html', array('errors' => $errors, 'attributes' => $params));
+        }
+    }
+
+
 }

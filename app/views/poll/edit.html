@@ -3,12 +3,12 @@
 
   <h2>Luo uusi äänestys</h2>
   <div>
-    <form method="post" action="{{base_path}}/newpoll">
+    <form method="post" action="{{base_path}}/update">
     <h3>Perustiedot</h3>
     <div class="newvote">
       <div class="basicinfo">
         Aihe:<br>
-        <input name="aihe" class="form-control" type="text" placeholder="Sushi on hyvää!"value="{{attributes.aihe}}">
+        <input name="aihe" class="form-control" type="text" value="{{attributes.aihe}}">
         Äänestys alkaa:<br>
         <input name="alkupvm" class="form-control" type="date" value="{{attributes.alkupvm}}">
         Äänestys päättyy:<br>
@@ -32,7 +32,7 @@
       <h3>Kuvaus</h3>
       <textarea name="kuvaus" rows="10" cols="100">{{attributes.kuvaus}}</textarea>
       <br>
-      <input class="btn btn-primary" type="submit" value="Tallenna ja luo äänestys"> 
+      <input class="btn btn-primary" type="submit" value="Tallenna muutokset"> 
     </form>
   </div>
 

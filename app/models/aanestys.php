@@ -7,10 +7,11 @@
  */
 class Aanestys extends BaseModel {
 
-    public $id, $tekija, $aihe, $kuvaus, $alkupvm, $loppupvm, $piilotettu, $tyyppi;
+    public $id, $tekija, $aihe, $kuvaus, $alkupvm, $loppupvm, $piilotettu, $tyyppi, $validators;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_aihe', 'validate_pvm', 'validate_kuvaus');
     }
 
     public static function all() {
@@ -42,13 +43,16 @@ class Aanestys extends BaseModel {
         
         
         if($row){
+            $alku = date('yyyy-mm-dd', $row['alkupvm']);
+            $loppu = date('yyyy-mm-dd', $row['loppupvm']);
+
             $aanestys = new Aanestys(array(
                 'id' => $row['id'],
                 'tekija' => $row['tekija'],
                 'aihe' => $row['aihe'],
                 'kuvaus' => $row['kuvaus'],
-                'alkupvm' => $row['alkupvm'],
-                'loppupvm' => $row['loppupvm'],
+                'alkupvm' => $alku,
+                'loppupvm' => $loppu,
                 'piilotettu' => $row['piilotettu'],
                 'tyyppi' => $row['tyyppi']
             ));
@@ -67,6 +71,34 @@ class Aanestys extends BaseModel {
             'loppupvm'=>$this->loppupvm, 'tyyppi'=>$this->tyyppi));
         $row = $query->fetch();
         $this->id = $row['id'];
+    }
+
+    public function validate_aihe(){
+        $errors = array();
+        if(!$this->validate_string_length($this->aihe, 50)){
+            $errors[] = 'Aiheen pituuden tulee olla 1 - 50 merkkiä (' . mb_strlen($this->aihe) . ')';
+        }
+        
+        return $errors;
+
+    }
+
+    public function validate_kuvaus(){
+        $errors = array();
+        if(!$this->validate_string_length($this->kuvaus, 1000)){
+            $errors[] = 'Kuvauksen pituuden tulee olla 1 - 1000 merkkiä (' . mb_strlen($this->kuvaus) . ')';
+        }
+        
+        return $errors;
+    }
+
+    public function validate_pvm(){
+
+        $errors = array();
+        if(!$this->validate_date($this->alkupvm) && !$this->validate_date($this->loppupvm)){
+            $errors[] = "Päivämäärän tulee olla muodossa yyyy-mm-dd";
+        }
+        return $errors;
     }
 
 }
