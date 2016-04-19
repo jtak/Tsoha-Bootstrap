@@ -64,11 +64,23 @@ class PollController extends BaseController {
             ));
         $errors = $poll->errors();
         if(count($errors) == 0){
-            $poll->save();
+            $poll->update();
             Redirect::to('/aanestys/listaus');
         } else {
             View::make('poll/edit.html', array('errors' => $errors, 'attributes' => $params));
         }
+    }
+
+    public static function delete($id){
+        //haetaan kaikki annetun äänestyksen vaihtoehdot ja poistetaan ne
+        //haetaan kaikki äänestyksen äänestystiedot ja poistetaan ne
+        //Poistetaan äänestys
+        $poll = Aanestys::find($id);
+        if($poll){
+           $poll->delete();
+        }
+
+        Redirect::to('/aanestys/listaus');
     }
 
 

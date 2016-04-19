@@ -45,6 +45,13 @@ div.votesettings {
 	margin-left: 40px;
 }
 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #f9f9f9;
+ }
+.table-striped>tbody>tr:nth-child(odd)>td.voted{
+	background-color: #0d0;
+}
 
 tr td.voted {
 	background-color: #0d0;

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-  <h2>Luo uusi äänestys</h2>
+  <h2>Muokkaa äänestystä</h2>
   <div>
-    <form method="post" action="{{base_path}}/update">
+    <form method="post" action="{{base_path}}/aanestys/{{attributes.id}}/update">
     <h3>Perustiedot</h3>
     <div class="newvote">
       <div class="basicinfo">
@@ -35,6 +35,12 @@
       <input class="btn btn-primary" type="submit" value="Tallenna muutokset"> 
     </form>
   </div>
+
+  <h2>Poista äänestys</h2>
+  <form method="post" action="{{base_path}}/aanestys/{{attributes.id}}/delete">
+    <input class="btn btn-primary" type="submit" value="Poista äänestys">
+  </form>
+
 
 
 

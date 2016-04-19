@@ -27,13 +27,25 @@
   $routes->get('/aanestys/listaus', function(){
       PollController::index();
   });
-   $routes->get('/aanestys/details/:id', function($id){
+  $routes->get('/aanestys/:id/details', function($id){
        PollController::details($id);
-   });
+  });
 
-   $routes->get('/aanestys/uusi', function(){
+  $routes->get('/aanestys/:id/edit', function($id){
+    PollController::edit($id);
+  });
+
+  $routes->post('/aanestys/:id/update', function($id){
+    PollController::update($id);
+  });
+
+  $routes->post('/aanestys/:id/delete', function($id){
+    PollController::delete($id);
+  });
+
+  $routes->get('/aanestys/uusi', function(){
        PollController::newpoll();
-   });
+  });
    
   $routes->get('/suunnitelmat/etusivu', function(){
   	HelloWorldController::etusivu();

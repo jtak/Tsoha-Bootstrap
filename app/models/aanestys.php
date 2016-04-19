@@ -43,16 +43,16 @@ class Aanestys extends BaseModel {
         
         
         if($row){
-            $alku = date('yyyy-mm-dd', $row['alkupvm']);
-            $loppu = date('yyyy-mm-dd', $row['loppupvm']);
+            //$alku = date('yyyy-mm-dd', $row['alkupvm']);
+            //$loppu = date('yyyy-mm-dd', $row['loppupvm']);
 
             $aanestys = new Aanestys(array(
                 'id' => $row['id'],
                 'tekija' => $row['tekija'],
                 'aihe' => $row['aihe'],
                 'kuvaus' => $row['kuvaus'],
-                'alkupvm' => $alku,
-                'loppupvm' => $loppu,
+                'alkupvm' => $row['alkupvm'],
+                'loppupvm' => $row['loppupvm'],
                 'piilotettu' => $row['piilotettu'],
                 'tyyppi' => $row['tyyppi']
             ));
@@ -73,14 +73,25 @@ class Aanestys extends BaseModel {
         $this->id = $row['id'];
     }
 
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE Aanestys SET tekija = :tekija, aihe = :aihe, kuvaus = :kuvaus, alkupvm = :alkupvm, loppupvm = :loppupvm,  tyyppi = :tyyppi WHERE id = :id');
+        $query->execute(array('tekija' => $this->tekija, 'aihe' => $this->aihe, 'kuvaus'=>$this->kuvaus, 'alkupvm' => $this->alkupvm, 'loppupvm' => $this->loppupvm, 'tyyppi'=>$this->tyyppi, 'id' => $this->id));
+    }
+
+    public function delete(){
+        //tähän ensin haku kaikille aanestyksen vaihtoehdoille ja niiden poisto ensin jotta viittaukset eivät hajoa.
+        //Lisäksi äänestystietojen poisto
+
+        $query = DB::connection()->prepare('DELETE FROM Aanestys WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }
+
     public function validate_aihe(){
         $errors = array();
         if(!$this->validate_string_length($this->aihe, 50)){
             $errors[] = 'Aiheen pituuden tulee olla 1 - 50 merkkiä (' . mb_strlen($this->aihe) . ')';
         }
-        
         return $errors;
-
     }
 
     public function validate_kuvaus(){

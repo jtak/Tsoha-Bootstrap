@@ -16,10 +16,13 @@
         {% for poll in polls %}
             {% if not poll.piilotettu %}
             <tr>
-                <td><a href="{{base_path}}/aanestys/details/{{poll.id}}">{{poll.aihe}}</a></td>
+                <td><a href="{{base_path}}/aanestys/{{poll.id}}/details">{{poll.aihe}}</a></td>
                 <td>{{poll.alkupvm}}</td>
                 <td>{{poll.loppupvm}}</td>
                 <td class="voted">Äänestetty</td>
+                {% if user_logged_in.id == poll.tekija %}
+                  <td><a href="{{base_path}}/aanestys/{{poll.id}}/edit" class="btn btn-default">Muokkaa</a></td>
+                {% endif %}
             </tr>
             {% else %}
             {% endif %}
