@@ -9,21 +9,20 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      View::make('bootstrap-esittely.html');
-        /*
+      
+        
         $eka = Aanestys::find(1);
         $kaikki = Aanestys::all();
         
         Kint::dump($eka);
         Kint::dump($kaikki);
-        */
+        
         
     }
     
     public static function sandbox2(){
-      //View::make('bootstrap-esittely.html');
-      echo 'make: '.crypt('make1234').'<br>';
-      echo 'viljami: '.crypt('viljami1234');
+      View::make('bootstrap-esittely.html');
+      
     }
 
     public static function etusivu(){
