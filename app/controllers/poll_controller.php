@@ -67,7 +67,7 @@ class PollController extends BaseController {
             $poll->update();
             Redirect::to('/aanestys/listaus');
         } else {
-            View::make('poll/edit.html', array('errors' => $errors, 'attributes' => $params));
+            View::make('poll/edit.html', array('errors' => $errors, 'attributes' => $poll));
         }
     }
 
