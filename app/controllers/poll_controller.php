@@ -9,7 +9,9 @@
 class PollController extends BaseController {
     public static function index(){
         $polls = Aanestys::all();
-        View::make('poll/listaus.html', array('polls' => $polls));
+        $voted_polls = Voted::findByUser($_SESSION['user']);
+
+        View::make('poll/listaus.html', array('polls' => $polls, 'voted_polls' => $voted_polls));
     }
     
     public static function details($id){
@@ -24,10 +26,10 @@ class PollController extends BaseController {
     
     public static function store(){
         $params = $_POST;
-        
+        $user_id = $_SESSION['user'];
         $poll = new Aanestys(array(
                 'id' => 0,
-                'tekija' => 1,
+                'tekija' => $user_id,
                 'aihe' => $params['aihe'],
                 'kuvaus' => $params['kuvaus'],
                 'alkupvm' => $params['alkupvm'],
@@ -46,6 +48,10 @@ class PollController extends BaseController {
     
     public static function edit($id){
         $poll = Aanestys::find($id);
+        $user_id = $_SESSION['user'];
+        if($user_id != $poll->tekija){
+            Redirect::to('/aanestys/' . $id . '/details', array('message' => 'Voit muokata vain omia äänestyksiäsi.'));
+        }
         View::make('poll/edit.html', array('attributes' => $poll));
     }
 
@@ -82,6 +88,4 @@ class PollController extends BaseController {
 
         Redirect::to('/aanestys/listaus');
     }
-
-
 }

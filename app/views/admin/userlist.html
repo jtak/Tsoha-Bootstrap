@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<a href="{{base_path}}/kayttaja/uusi" class="btn btn-default">Uusi käyttäjä</a>
+
+  <div class="userlist">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Käyttäjätunnus</th>
+          <th>Äänestänyt</th>
+          <th>Äänestyksiä luotu</th>
+          <th>Admin?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{base_path}}/user/{{user.id}}/details">{{user.username}}</a></td>
+                <td>{{uservotes[user.id]}}</td>
+                <td>{{userpolls[user.id]}}</td>
+                <td>ei</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+
+{% endblock %}

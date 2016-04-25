@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{user.username}}</h2>
+
+  <h3>Käyttäjän luomat äänestykset</h3>
+  <div class="votelist">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Aihe</th>
+          <th>Alkaa</th>
+          <th>Päättyy</th>
+          <th>Piilotettu</th>
+          <th>Piilotettu</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for poll in ownedpolls %}
+            <tr>
+                <td><a href="{{base_path}}/aanestys/{{poll.id}}/details">{{poll.aihe}}</a></td>
+                <td>{{poll.alkupvm}}</td>
+                <td>{{poll.loppupvm}}</td>
+                {% if poll.open %}
+                  <td class="open">Kesken</td>
+                {% else %}
+                  <td class="closed">Suljettu</td>
+                {% endif %}
+                <td>{{poll.piilotettu}}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Äänestetyt</h3>
+  <div class="votelist">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Aihe</th>
+          <th>Alkaa</th>
+          <th>Päättyy</th>
+          <th>Piilotettu</th>
+          <th>Piilotettu</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for poll in votedpolls %}
+            <tr>
+                <td><a href="{{base_path}}/aanestys/{{poll.id}}/details">{{poll.aihe}}</a></td>
+                <td>{{poll.alkupvm}}</td>
+                <td>{{poll.loppupvm}}</td>
+                {% if poll.open %}
+                  <td class="open">Kesken</td>
+                {% else %}
+                  <td class="closed">Suljettu</td>
+                {% endif %}
+                <td>{{poll.piilotettu}}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+
+{% endblock %}

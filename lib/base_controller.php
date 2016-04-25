@@ -14,10 +14,7 @@
     public static function check_logged_in(){
       // Toteuta kirjautumisen tarkistus tähän.
       // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
-      $user = self::get_user_logged_in();
-      if($user){
-        Redirect::to('/aanestys/listaus');
-      } else {
+      if(!isset($_SESSION['user'])) {
         Redirect::to('/login');
       }
 

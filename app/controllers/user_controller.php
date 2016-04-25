@@ -25,11 +25,30 @@ class UserController extends BaseController {
     	$user = User::authenticate($params['username'], $params['password']);
     	if(!$user){
 	      View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
-	    }else{
+	    } else {
 	      $_SESSION['user'] = $user->id;
 
 	      Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->username . '!'));
+        }
     }
+
+    public static function logout(){
+        $_SESSION['user'] = null;
+        Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+    }
+
+    public static function listUsers(){
+        $users = User::all();
+        $userpolls = Aanestys::countAllByOwner();
+        $uservotes = Voted::countAllByUser();
+        View::make('admin/userlist.html', array('users' => $users, 'userpolls' => $userpolls, 'uservotes' => $uservotes));
+    }
+
+    public static function userDetails($id){
+        $user = User::find($id);
+        $ownedPolls = Aanestys::findByOwner($id);
+        $votedPolls = Aanestys::findVotedPolls($id);
+        View::make('/admin/userdetails.html', array('user' => $user, 'ownedpolls' => $ownedPolls, 'votedpolls' => $votedPolls));
     }
 
 

@@ -34,8 +34,9 @@
           </button>
           <!-- Sovelluksen nimi -->
           <a class="navbar-brand" href="{{base_path}}">Käppä-äänestys</a>
-        </div>
 
+        </div>
+        {% if user_logged_in %}
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
@@ -45,9 +46,14 @@
             <li><a href="{{base_path}}/testimaa-keskimaa">Hiekkalaatikko</a></li>
             <li><a href="{{base_path}}/tietokantayhteys">Tietokannan sisältö</a></li>
           </ul>
+         <div>
+            Käyttäjä: {{user_logged_in.username}}
+          </div>
+          <form method="post" action="{{base_path}}/logout">
+              <input class="btn btn-default" type="submit" value="Kirjaudu ulos">
+            </form>
         </div>
-        {% if user_logged_in %}
-            <div style="color: grey">Kirjautuneena käyttäjätunnuksella {{user_logged_in.username}}</div>
+
         {% endif %}
       </div>
     </nav>

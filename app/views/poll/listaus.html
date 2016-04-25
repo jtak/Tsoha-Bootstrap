@@ -14,12 +14,18 @@
       </thead>
       <tbody>
         {% for poll in polls %}
-            {% if not poll.piilotettu %}
+            {% if not poll.piilotettu or user_logged_in.id == poll.tekija %}
             <tr>
                 <td><a href="{{base_path}}/aanestys/{{poll.id}}/details">{{poll.aihe}}</a></td>
                 <td>{{poll.alkupvm}}</td>
                 <td>{{poll.loppupvm}}</td>
-                <td class="voted">Äänestetty</td>
+                {% if poll.id in voted_polls %} 
+                  <td class="voted">Äänestetty</td>
+                {% elseif poll.open %}
+                  <td class="open">Äänestämättä</td>
+                {% else %}
+                  <td class="closed">Suljettu</td>
+                {% endif %}
                 {% if user_logged_in.id == poll.tekija %}
                   <td><a href="{{base_path}}/aanestys/{{poll.id}}/edit" class="btn btn-default">Muokkaa</a></td>
                 {% endif %}
