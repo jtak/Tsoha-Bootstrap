@@ -7,17 +7,17 @@
    <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Valinta</th>
-          <th>Valitse (tähän tulee vielä nätimpi nappula joskus)</th>
+          <th>Nimi</th>
           <th>Lisätieto</th>
+          <th style="width: 10%">Valitse</th>
         </tr>
       </thead>
       <tbody>
           {% for option in options %}
             <tr>
                 <td>{{option.name}}</td>
-                <td><input type="radio" name="vote" value="{{option.id}}"></td>
                 <td>{{option.description}}</td>
+                <td><input type="radio" name="option_id" value="{{option.id}}"></td>
             </tr>
            {% endfor %}
       </tbody>

@@ -13,11 +13,12 @@
  */
 class Option extends BaseModel{
     
-    public $id, $poll, $name, $description;
+    public $id, $poll, $name, $description, $validators;
     //put your code here
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name', 'validate_description');
     }
     
     public static function all(){
@@ -74,6 +75,34 @@ class Option extends BaseModel{
         }
         return $options;
         
+    }
+
+    public function save(){
+        $query = DB::connection()->prepare('INSERT INTO Vaihtoehto (aanestys, nimi, lisatieto) '. 
+            'VALUES (:poll_id, :name, :description) RETURNING id');
+        $query->execute(array(
+            'poll_id' => $this->poll, 'name' => $this->name, 'description' => $this->description
+        ));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+
+    }
+
+
+    public function validate_name(){
+        $errors = array();
+        if(!$this->validate_string_length($this->name, 30)){
+            $errors[] = 'Nimen pituuden tulee olla 1 - 30 merkkiä (' . mb_strlen($this->name) . ')';
+        }
+        return $errors;
+    }
+
+    public function validate_description(){
+        $errors = array();
+        if(!$this->validate_string_length($this->description, 100)){
+            $errors[] = 'Lisätiedon pituuden tulee olla 1 - 100 merkkiä (' . mb_strlen($this->description) . ')';
+        }
+        return $errors;
     }
     
 }

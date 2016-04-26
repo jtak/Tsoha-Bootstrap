@@ -82,6 +82,7 @@ class Aanestys extends BaseModel {
             'loppupvm'=>$this->loppupvm, 'tyyppi'=>$this->tyyppi));
         $row = $query->fetch();
         $this->id = $row['id'];
+        return $this->id;
     }
 
     public function update(){

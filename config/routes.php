@@ -12,7 +12,7 @@
     UserController::handle_login();
   });
 
-  $routes->post('/newpoll', 'check_logged_in', function(){
+  $routes->post('/aanestys/uusi', 'check_logged_in', function(){
       PollController::store();
   });
   

@@ -39,8 +39,27 @@ class PollController extends BaseController {
             ));
         $errors = $poll->errors();
         if(count($errors) == 0){
-            $poll->save();
-            Redirect::to('/aanestys/listaus');
+            $poll_id = $poll->save();
+            $options = $params['num_options'];
+            
+            for($i = 0; $i < $options; $i++){ //käydään läpi annetut äänestysvaihtoehdot
+                $option_name = $params['option_name'][$i];
+                $option_desc = $params['option_desc'][$i];
+                $option = new Option(array(
+                    'id' => 0,
+                    'poll' => $poll_id,
+                    'name' => $option_name,
+                    'description' => $option_desc
+                ));
+                $errors = $option->errors();
+                if(count($errors) == 0){
+                    $option->save();
+                } else {
+                    Redirect::to('/aanestys/' . $poll_id . '/edit', array('errors' => $errors));
+                }
+
+            }
+            Redirect::to('/aanestys/' . $poll_id . '/details');
         } else {
             View::make('poll/newpoll.html', array('errors' => $errors, 'attributes' => $params));
         }

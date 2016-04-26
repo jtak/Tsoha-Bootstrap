@@ -3,7 +3,7 @@
 
   <h2>Luo uusi äänestys</h2>
   <div>
-    <form method="post" action="{{base_path}}/newpoll">
+    <form method="post" action="{{base_path}}/aanestys/uusi">
     <h3>Perustiedot</h3>
     <div class="newvote">
       <div class="basicinfo">
@@ -31,10 +31,35 @@
     {% endif %}
       <h3>Kuvaus</h3>
       <textarea name="kuvaus" rows="10" cols="100">{{attributes.kuvaus}}</textarea>
+      <div>
+      <h3>Äänestysvaihtoehdot</h3>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Valinta</th>
+            <th>Lisätieto</th>
+          </tr>
+        </thead>
+        <tbody id="vote_options_wrap">
+          <tr>
+            <td><input class="form-control" type="text" name="option_name[]"></td>
+            <td><input class="form-control" type="text" name="option_desc[]"></td>
+          </tr>
+          <tr>
+            <td><input class="form-control" type="text" name="option_name[]"></td>
+            <td><input class="form-control" type="text" name="option_desc[]"></td>
+          </tr>
+        </tbody>
+      </table>
+      <input id="num_of_options" type="hidden" name="num_options" value="2">
+      <button class="btn btn-default" id="add_field_button">Lisää rivi</button>
+      </div>
       <br>
       <input class="btn btn-primary" type="submit" value="Tallenna ja luo äänestys"> 
     </form>
   </div>
+
+  
 
 
 
