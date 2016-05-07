@@ -17,7 +17,8 @@ class PollController extends BaseController {
     public static function details($id){
         $poll = Aanestys::find($id);
         $options = Option::findPollOptions($id);
-        View::make('poll/aanestys.html', array('poll' => $poll, 'options' => $options));
+        $results = Vote::countPollVotes($id);
+        View::make('poll/aanestys.html', array('poll' => $poll, 'options' => $options, 'results' => $results));
     }
     
     public static function newpoll(){
@@ -70,8 +71,12 @@ class PollController extends BaseController {
         $user_id = $_SESSION['user'];
         if($user_id != $poll->tekija){
             Redirect::to('/aanestys/' . $id . '/details', array('message' => 'Voit muokata vain omia äänestyksiäsi.'));
+        } else if($poll->open){
+            Redirect::to('/aanestys/' . $id . '/details', array('message' => 'Et voi muokata käynnissä olevaa äänestystä.'));    
+        } else {
+            $options = Option::findPollOptions($id);
+            View::make('poll/edit.html', array('attributes' => $poll, 'options' => $options));
         }
-        View::make('poll/edit.html', array('attributes' => $poll));
     }
 
     public static function update($id){
@@ -102,7 +107,12 @@ class PollController extends BaseController {
         //Poistetaan äänestys
         $poll = Aanestys::find($id);
         if($poll){
-           $poll->delete();
+            $options = Option::findPollOptions($poll->id);
+            foreach($options as $option){
+                $option->delete();
+            }
+            Voted::deletePollVoted($poll->id);
+            $poll->delete();
         }
 
         Redirect::to('/aanestys/listaus');

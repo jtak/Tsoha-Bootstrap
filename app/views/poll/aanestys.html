@@ -3,13 +3,17 @@
 <h2>{{poll.aihe}}</h2>
 
 <div>
-  <form>
+  <form method="post" action="{{base_path}}/vote" >
    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Nimi</th>
           <th>Lisätieto</th>
-          <th style="width: 10%">Valitse</th>
+          {% if poll.open %}
+            <th style="width: 10%">Valitse</th>
+          {% else %}
+            <th style="width: 10%">Ääniä</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -17,13 +21,25 @@
             <tr>
                 <td>{{option.name}}</td>
                 <td>{{option.description}}</td>
-                <td><input type="radio" name="option_id" value="{{option.id}}"></td>
+                {% if poll.open %}
+                  <td><input type="radio" name="option_id" value="{{option.id}}"></td>
+                {% else %}
+                  <td>{{results[option.id]}}</td>
+                {% endif %}
             </tr>
            {% endfor %}
       </tbody>
     </table>
+    <input type="hidden" name="poll_id" value="{{poll.id}}">
     <input class="btn btn-primary" type="submit" value="Äänestä!"> 
   </form>
+  {% if message %}
+    <div class="alert alert-danger">
+      <ul>
+          <li>{{message}}</li>
+      </ul>
+    </div>
+    {% endif %}
 </div>
 <br>
 <h2>Kuvaus</h2>

@@ -50,8 +50,17 @@ class User extends BaseModel {
             
             return $user;
         }
-        return null;
-        
+        return null;   
+    }
+
+    public static function userExists($username){
+        $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE kayttajatunnus = :username');
+        $query->execute(array('username' => $username));
+        $rows = $query->fetchAll();
+        if(count($rows) == 0){
+            return false;
+        }
+        return true;
     }
 
     public static function authenticate($username, $password){
@@ -71,4 +80,13 @@ class User extends BaseModel {
             return null; //virhe
         }
     }
+
+    public function save(){
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja(kayttajatunnus, salasana) VALUES(:username, :password) RETURNING id');
+        $query->execute(array('username' => $this->username, 'password' => $this->password));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+
+
 }

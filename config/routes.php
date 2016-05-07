@@ -50,6 +50,10 @@
   $routes->get('/aanestys/uusi', 'check_logged_in', function(){
        PollController::newpoll();
   });
+
+  $routes->post('/vote', 'check_logged_in', function(){
+    VoteController::store();
+  });
    
   $routes->get('/suunnitelmat/etusivu', 'check_logged_in', function(){
   	HelloWorldController::etusivu();
@@ -79,4 +83,20 @@
 
   $routes->get('/user/:id/details', 'check_logged_in', function($id){
     UserController::userDetails($id);
+  });
+
+  $routes->post('/user/reg', function(){
+    UserController::store();
+  });
+
+  $routes->get('/user/new', function(){
+    UserController::newUser();
+  });
+
+  $routes->post('/aanestys/option/new', function(){
+    OptionController::newOption();
+  });
+
+  $routes->post('/aanestys/option/:option_id/edit', function($option_id){
+    OptionController::update($option_id);
   });

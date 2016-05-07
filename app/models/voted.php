@@ -37,6 +37,16 @@ class Voted extends BaseModel {
 
     }
 
+    public static function hasVoted($user_id, $poll_id) {
+        $query = DB::connection()->prepare('SELECT * FROM Aanestaneet WHERE kayttaja = :user_id AND aanestys = :poll_id');
+        $query->execute(array('user_id' => $user_id, 'poll_id' => $poll_id));
+        $rows = $query->fetchAll();
+        if(count($rows) == 0){
+            return false;
+        }
+        return true;
+    }
+
     public static function findByPoll($poll_id) {
     	$query = DB::connection()->prepare('SELECT * FROM Aanestaneet WHERE aanestys = :aanestys');
     	$query->execute(array('aanestys' => $poll_id));
@@ -74,6 +84,16 @@ class Voted extends BaseModel {
         }
         return $uservotes;
 
+    }
+
+    public function save(){
+        $query = DB::connection()->prepare('INSERT INTO Aanestaneet(kayttaja, aanestys) VALUES(:user_id, :poll_id)');
+        $query->execute(array('user_id' => $this->user_id, 'poll_id' => $this->poll_id));
+    }
+
+    public static function deletePollVoted($poll_id){
+        $query = DB::connection()->prepare('DELETE FROM Aanestaneet WHERE aanestys = :poll');
+        $query->execute(array('poll' => $poll_id));
     }
 
 }

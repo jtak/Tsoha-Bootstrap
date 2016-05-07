@@ -5,7 +5,7 @@
  *
  * @author jttakkin
  */
-class Aanestys extends BaseModel {
+class Poll extends BaseModel {
 
     public $id, $tekija, $aihe, $kuvaus, $alkupvm, $loppupvm, $piilotettu, $tyyppi, $validators, $open;
 
@@ -23,7 +23,7 @@ class Aanestys extends BaseModel {
         $aanestykset = array();
 
         foreach ($rows as $row) {
-            $aanestykset[] = new Aanestys(array(
+            $aanestykset[] = new Poll(array(
                 'id' => $row['id'],
                 'tekija' => $row['tekija'],
                 'aihe' => $row['aihe'],
@@ -47,7 +47,7 @@ class Aanestys extends BaseModel {
             //$alku = date('yyyy-mm-dd', $row['alkupvm']);
             //$loppu = date('yyyy-mm-dd', $row['loppupvm']);
 
-            $aanestys = new Aanestys(array(
+            $aanestys = new Poll(array(
                 'id' => $row['id'],
                 'tekija' => $row['tekija'],
                 'aihe' => $row['aihe'],
@@ -161,7 +161,7 @@ class Aanestys extends BaseModel {
         $aanestykset = array();
 
         foreach ($rows as $row) {
-            $aanestykset[] = new Aanestys(array(
+            $aanestykset[] = new Poll(array(
                 'id' => $row['id'],
                 'tekija' => $row['tekija'],
                 'aihe' => $row['aihe'],
@@ -181,7 +181,7 @@ class Aanestys extends BaseModel {
         $polls = array();
         $rows = $query->fetchAll();
         foreach($rows as $row){
-            $polls[] = new Aanestys(array(
+            $polls[] = new Poll(array(
                 'id' => $row['id'],
                 'tekija' => $row['tekija'],
                 'aihe' => $row['aihe'],

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h3>Rekisteröi uusi käyttäjä</h3>
+  <div class="loginbox">
+    	<form method="post" action="{{base_path}}/user/reg">
+      <div class="form-group">
+        <label>Kayttäjätunnus</label>
+        <br>
+        <input class="form-control" type="text" name="username" value="{{user.username}}" maxlength="30">
+      </div>
+      <br>
+      <div class="form-group">
+        <label>Salasana</label>
+        <br>
+        <input class="form-control" type="password" name="password">
+      </div>
+      <br>
+      <input class="btn btn-default" type="submit" value="Rekisteröidy!">
+  	</form>
+  </div>
+  {% if message %}
+    <div class="alert alert-danger">
+      <ul>
+          <li>{{message}}</li>
+      </ul>
+    </div>
+    {% endif %}
+
+{% endblock %}

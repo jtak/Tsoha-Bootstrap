@@ -41,7 +41,36 @@
     <input class="btn btn-primary" type="submit" value="Poista äänestys">
   </form>
 
-
+  <h2>Äänestysvaihtoehdot</h2>
+  <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nimi</th>
+          <th>Lisätieto</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for option in options %}
+          <form method="post" action="{{base_path}}/aanestys/option/{{option.id}}/edit">
+          <input type="hidden" name="poll_id" value="{{attributes.id}}">
+            <tr>
+                <td><input class="form-control" name="name" type="text" value="{{option.name}}"></td>
+                <td><input class="form-control" name="desc" type="text" value="{{option.description}}"></td>
+                <td><input class="btn btn-default" type="submit" value="Tallenna"></td>
+            </tr>
+            </form>
+           {% endfor %}
+          <form method="post" action="{{base_path}}/aanestys/option/new">
+          <input type="hidden" name="poll_id" value="{{attributes.id}}">
+            <tr>
+                <td><input class="form-control" name="name" type="text" placeholder="Uusi vaihtoehto"></td>
+                <td><input class="form-control" name="desc" type="text" placeholder="Kuvaus"></td>
+                <td><input class="btn btn-default" type="submit" value="Lisää uusi vaihtoehto"></td>
+            </tr>
+            </form>
+      </tbody>
+    </table>
 
 
 {% endblock %}

@@ -51,5 +51,22 @@ class UserController extends BaseController {
         View::make('/admin/userdetails.html', array('user' => $user, 'ownedpolls' => $ownedPolls, 'votedpolls' => $votedPolls));
     }
 
+    public static function store(){
+        $params = $_POST;
+        $user = new User(array('id' => 0, 'username' => $params['username'], 'password' => $params['password']));
+        if(User::userExists($user->username)){
+            Redirect::to('/user/new', array('user' => $user, 'message' => 'Käyttäjätunnus on jo kä§ytössä.'));
+        } else {
+            $user->save();
+            $_SESSION['user'] = $user->id;
+            Redirect::to('/', array('message' => 'Tervetuloa ' . $user->username . '!'));
+        }
+
+    }
+
+    public static function newUser(){
+        View::make('user/registration.html');
+    }
+
 
 }

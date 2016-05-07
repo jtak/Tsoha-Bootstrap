@@ -85,7 +85,11 @@ class Option extends BaseModel{
         ));
         $row = $query->fetch();
         $this->id = $row['id'];
+    }
 
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE vaihtoehto SET nimi = :name, lisatieto = :description WHERE id = :id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description, 'id' => $this->id));
     }
 
 
@@ -104,5 +108,13 @@ class Option extends BaseModel{
         }
         return $errors;
     }
+
+    public function delete(){
+        Vote::deleteOptionVotes($this->id);
+        $query = DB::connection()->prepare('DELETE FROM Vaihtoehto WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }
+
+    
     
 }
