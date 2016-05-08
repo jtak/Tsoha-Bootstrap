@@ -28,8 +28,8 @@
       return $errors;
     }
 
-    public function validate_string_length($str, $length){
-      if(mb_strlen($str) < 1){
+    public function validate_string_length($str, $length, $allowEmpty = false){
+      if(mb_strlen($str) < 1 && !$allowEmpty){
           return false;
       } else if(mb_strlen($str) > $length) {
         return false;

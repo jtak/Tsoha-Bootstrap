@@ -1,8 +1,9 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
 CREATE TABLE Kayttaja (
 	id SERIAL PRIMARY KEY,
-	kayttajatunnus varchar(20) NOT NULL UNIQUE,
-	salasana varchar(255) NOT NULL   
+	kayttajatunnus varchar(20) UNIQUE NOT NULL,
+	salasana varchar(255) NOT NULL,
+	yllapitaja boolean DEFAULT FALSE   
 );
 
 CREATE TABLE Aanestys (

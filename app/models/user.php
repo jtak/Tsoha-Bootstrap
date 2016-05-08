@@ -13,7 +13,7 @@
  */
 class User extends BaseModel {
     
-    public $id, $username, $password;
+    public $id, $username, $password, $admin;
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
@@ -30,7 +30,8 @@ class User extends BaseModel {
             $users[] = new User(array(
                 'id' => $row['id'],
                 'username' => $row['kayttajatunnus'],
-                'password' => $row['salasana']
+                'password' => $row['salasana'],
+                'admin' => $row['yllapitaja']
             ));
         }
         return $users;
@@ -45,7 +46,8 @@ class User extends BaseModel {
             $user = new User(array(
                 'id' => $row['id'],
                 'username' => $row['kayttajatunnus'],
-                'password' => $row['salasana']
+                'password' => $row['salasana'],
+                'admin' => $row['yllapitaja']
             ));
             
             return $user;
@@ -72,7 +74,8 @@ class User extends BaseModel {
             $user = new User(array(
                 'id' => $row['id'],
                 'username' => $row['kayttajatunnus'],
-                'password' => $row['salasana']
+                'password' => $row['salasana'],
+                'admin' => $row['yllapitaja']
             ));
 
             return $user;

@@ -14,11 +14,11 @@
       </thead>
       <tbody>
         {% for poll in polls %}
-            {% if not poll.piilotettu or user_logged_in.id == poll.tekija %}
+            {% if not poll.hidden or user_logged_in.id == poll.creator %}
             <tr>
-                <td><a href="{{base_path}}/aanestys/{{poll.id}}/details">{{poll.aihe}}</a></td>
-                <td>{{poll.alkupvm}}</td>
-                <td>{{poll.loppupvm}}</td>
+                <td><a href="{{base_path}}/aanestys/{{poll.id}}/details">{{poll.title}}</a></td>
+                <td>{{poll.startdate}}</td>
+                <td>{{poll.enddate}}</td>
                 {% if poll.id in voted_polls %} 
                   <td class="voted">Äänestetty</td>
                 {% elseif poll.open %}
@@ -26,8 +26,8 @@
                 {% else %}
                   <td class="closed">Suljettu</td>
                 {% endif %}
-                {% if user_logged_in.id == poll.tekija %}
-                  {% if poll.open %}
+                {% if user_logged_in.id == poll.creator or user_logged_in.admin %}
+                  {% if poll.open and not user_logged_in.admin %}
                     <td>
                       <form method="post" action="{{base_path}}/aanestys/{{poll.id}}/delete">
                         <input class="btn btn-danger" type="submit" value="Poista äänestys">
@@ -46,5 +46,11 @@
     </table>
   </div>
   <a href="{{base_path}}/aanestys/uusi" class="btn btn-default">Luo uusi äänestys</a>
-
+  {% if message %}
+    <div class="alert alert-danger">
+      <ul>
+          <li>{{message}}</li>
+      </ul>
+    </div>
+    {% endif %}
 {% endblock %}

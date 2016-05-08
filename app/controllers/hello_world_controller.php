@@ -11,8 +11,8 @@
       // Testaa koodiasi täällä
       
         
-        $eka = Aanestys::find(1);
-        $kaikki = Aanestys::all();
+        $eka = Poll::find(1);
+        $kaikki = Poll::all();
         
         Kint::dump($eka);
         Kint::dump($kaikki);

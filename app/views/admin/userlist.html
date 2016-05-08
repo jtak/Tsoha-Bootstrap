@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<a href="{{base_path}}/kayttaja/uusi" class="btn btn-default">Uusi käyttäjä</a>
+	<a href="{{base_path}}/user/new" class="btn btn-default">Uusi käyttäjä</a>
 
   <div class="userlist">
     <table class="table table-bordered table-striped">
@@ -10,7 +10,7 @@
           <th>Käyttäjätunnus</th>
           <th>Äänestänyt</th>
           <th>Äänestyksiä luotu</th>
-          <th>Admin?</th>
+          <th>Ylläpitäjä</th>
         </tr>
       </thead>
       <tbody>
@@ -19,7 +19,11 @@
                 <td><a href="{{base_path}}/user/{{user.id}}/details">{{user.username}}</a></td>
                 <td>{{uservotes[user.id]}}</td>
                 <td>{{userpolls[user.id]}}</td>
-                <td>ei</td>
+                {% if user.admin == true %}
+                  <td>Kyllä</td>
+                {% else %}
+                  <td>Ei</td>
+                {% endif %}
             </tr>
         {% endfor %}
       </tbody>

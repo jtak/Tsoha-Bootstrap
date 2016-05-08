@@ -39,15 +39,15 @@ class UserController extends BaseController {
 
     public static function listUsers(){
         $users = User::all();
-        $userpolls = Aanestys::countAllByOwner();
+        $userpolls = Poll::countAllByOwner();
         $uservotes = Voted::countAllByUser();
         View::make('admin/userlist.html', array('users' => $users, 'userpolls' => $userpolls, 'uservotes' => $uservotes));
     }
 
     public static function userDetails($id){
         $user = User::find($id);
-        $ownedPolls = Aanestys::findByOwner($id);
-        $votedPolls = Aanestys::findVotedPolls($id);
+        $ownedPolls = Poll::findByOwner($id);
+        $votedPolls = Poll::findVotedPolls($id);
         View::make('/admin/userdetails.html', array('user' => $user, 'ownedpolls' => $ownedPolls, 'votedpolls' => $votedPolls));
     }
 
@@ -55,7 +55,7 @@ class UserController extends BaseController {
         $params = $_POST;
         $user = new User(array('id' => 0, 'username' => $params['username'], 'password' => $params['password']));
         if(User::userExists($user->username)){
-            Redirect::to('/user/new', array('user' => $user, 'message' => 'Käyttäjätunnus on jo kä§ytössä.'));
+            Redirect::to('/user/new', array('user' => $user, 'message' => 'Käyttäjätunnus on jo käytössä.'));
         } else {
             $user->save();
             $_SESSION['user'] = $user->id;

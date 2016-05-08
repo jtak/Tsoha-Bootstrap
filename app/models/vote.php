@@ -26,8 +26,12 @@ class Vote extends BaseModel {
     	$query = DB::connection()->prepare('SELECT COUNT(*) AS Votes FROM Aani WHERE vaihtoehto = :option_id LIMIT 1');
     	$query->execute(array('option_id' => $option_id));
     	$row = $query->fetch();
-    	$votes = $row['Votes'];
-    	return $votes;
+        if($row){
+    	   $votes = $row['Votes'];
+    	} else {
+            $votes = 0;
+        }
+        return $votes;
     }
 
     public static function findPollVotes($poll_id){

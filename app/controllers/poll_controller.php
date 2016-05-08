@@ -8,17 +8,18 @@
  */
 class PollController extends BaseController {
     public static function index(){
-        $polls = Aanestys::all();
+        $polls = Poll::all();
         $voted_polls = Voted::findByUser($_SESSION['user']);
 
         View::make('poll/listaus.html', array('polls' => $polls, 'voted_polls' => $voted_polls));
     }
     
-    public static function details($id){
-        $poll = Aanestys::find($id);
-        $options = Option::findPollOptions($id);
-        $results = Vote::countPollVotes($id);
-        View::make('poll/aanestys.html', array('poll' => $poll, 'options' => $options, 'results' => $results));
+    public static function details($poll_id){
+        $poll = Poll::find($poll_id);
+        $options = Option::findPollOptions($poll_id);
+        $results = Vote::countPollVotes($poll_id);
+        $winner = Option::findPollWinner($poll_id);
+        View::make('poll/aanestys.html', array('poll' => $poll, 'options' => $options, 'results' => $results, 'winner' => $winner));
     }
     
     public static function newpoll(){
@@ -28,15 +29,15 @@ class PollController extends BaseController {
     public static function store(){
         $params = $_POST;
         $user_id = $_SESSION['user'];
-        $poll = new Aanestys(array(
+        $poll = new Poll(array(
                 'id' => 0,
-                'tekija' => $user_id,
-                'aihe' => $params['aihe'],
-                'kuvaus' => $params['kuvaus'],
-                'alkupvm' => $params['alkupvm'],
-                'loppupvm' => $params['loppupvm'],
-                'piilotettu' => 'false',
-                'tyyppi' => $params['tyyppi']
+                'creator' => $user_id,
+                'title' => $params['aihe'],
+                'description' => $params['kuvaus'],
+                'startdate' => $params['alkupvm'],
+                'enddate' => $params['loppupvm'],
+                'hidden' => 'false',
+                'type' => $params['tyyppi']
             ));
         $errors = $poll->errors();
         if(count($errors) == 0){
@@ -67,13 +68,16 @@ class PollController extends BaseController {
     }
     
     public static function edit($id){
-        $poll = Aanestys::find($id);
+        $poll = Poll::find($id);
         $user_id = $_SESSION['user'];
-        if($user_id != $poll->tekija){
+        $user = User::find($user_id);
+        if($user_id != $poll->creator && !$user->admin){
             Redirect::to('/aanestys/' . $id . '/details', array('message' => 'Voit muokata vain omia äänestyksiäsi.'));
-        } else if($poll->open){
+        } else if($poll->open && !$user->admin){
             Redirect::to('/aanestys/' . $id . '/details', array('message' => 'Et voi muokata käynnissä olevaa äänestystä.'));    
-        } else {
+        } else if($poll->isClosed() && !$user->admin){
+            Redirect::to('/aanestys/' . $id . '/details', array('message' => 'Et voi muokata päättynyttä äänestystä.'));
+        }else {
             $options = Option::findPollOptions($id);
             View::make('poll/edit.html', array('attributes' => $poll, 'options' => $options));
         }
@@ -82,15 +86,15 @@ class PollController extends BaseController {
     public static function update($id){
         $params = $_POST;
         
-        $poll = new Aanestys(array(
+        $poll = new Poll(array(
                 'id' => $id,
-                'tekija' => 1,
-                'aihe' => $params['aihe'],
-                'kuvaus' => $params['kuvaus'],
-                'alkupvm' => $params['alkupvm'],
-                'loppupvm' => $params['loppupvm'],
-                'piilotettu' => 'false',
-                'tyyppi' => $params['tyyppi']
+                'creator' => 1,
+                'title' => $params['aihe'],
+                'description' => $params['kuvaus'],
+                'startdate' => $params['alkupvm'],
+                'enddate' => $params['loppupvm'],
+                'hidden' => 'false',
+                'type' => $params['tyyppi']
             ));
         $errors = $poll->errors();
         if(count($errors) == 0){
@@ -105,7 +109,7 @@ class PollController extends BaseController {
         //haetaan kaikki annetun äänestyksen vaihtoehdot ja poistetaan ne
         //haetaan kaikki äänestyksen äänestystiedot ja poistetaan ne
         //Poistetaan äänestys
-        $poll = Aanestys::find($id);
+        $poll = Poll::find($id);
         if($poll){
             $options = Option::findPollOptions($poll->id);
             foreach($options as $option){

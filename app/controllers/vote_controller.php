@@ -5,7 +5,7 @@ class VoteController extends BaseController {
 		$params = $_POST;
 		$user_id = $_SESSION['user'];
 		$poll_id = $params['poll_id'];
-		$poll = Aanestys::find($params['poll_id']);
+		$poll = Poll::find($params['poll_id']);
 		if(Voted::hasVoted($user_id, $poll_id)){
 			Redirect::to('/aanestys/' . $poll_id . '/details', array('message' => 'Olet jo äänestänyt tässä äänestyksessä!'));
 		} elseif(!$poll->open) {

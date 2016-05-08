@@ -8,16 +8,15 @@
     <div class="newvote">
       <div class="basicinfo">
         Aihe:<br>
-        <input name="aihe" class="form-control" type="text" value="{{attributes.aihe}}">
+        <input name="aihe" class="form-control" type="text" value="{{attributes.title}}">
         Äänestys alkaa:<br>
-        <input name="alkupvm" class="form-control" type="date" value="{{attributes.alkupvm}}">
+        <input name="alkupvm" class="form-control" type="date" value="{{attributes.startdate}}">
         Äänestys päättyy:<br>
-        <input name="loppupvm" class="form-control" type="date" value="{{attributes.loppupvm}}">
+        <input name="loppupvm" class="form-control" type="date" value="{{attributes.enddate}}">
       </div>
       <div class="votesettings">
         <input type="radio" name="tyyppi" value="1" checked>Tavallinen<br>
-        <input type="radio" name="tyyppi" value="1">Koko tilanne näkyvissä<br>
-        <input type="radio" name="tyyppi" value="1">Johtava vaihtoehto näkyvissä<br>
+        <input type="radio" name="tyyppi" value="2">Koko tilanne näkyvissä<br>
       </div>
     </div>
     {% if errors %}
@@ -30,7 +29,7 @@
     </div>
     {% endif %}
       <h3>Kuvaus</h3>
-      <textarea name="kuvaus" rows="10" cols="100">{{attributes.kuvaus}}</textarea>
+      <textarea name="kuvaus" rows="10" cols="100">{{attributes.description}}</textarea>
       <br>
       <input class="btn btn-primary" type="submit" value="Tallenna muutokset"> 
     </form>

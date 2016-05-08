@@ -64,6 +64,13 @@ tr td.voted {
 	background-color: #0d0;
 }
 
+.table-striped>tbody>tr:nth-child(odd).winner{
+	background-color: #0d0;
+}
+tr.winner {
+	background-color: #0d0;
+}
+
 td.can-vote {
 	background-color: #00d;
 }

@@ -115,6 +115,16 @@ class Option extends BaseModel{
         $query->execute(array('id' => $this->id));
     }
 
+    public static function findPollWinner($poll_id){
+        $query = DB::connection()->prepare('SELECT vaihtoehto.id as option, COUNT(*) as votes FROM Vaihtoehto INNER JOIN Aani ON aani.vaihtoehto = vaihtoehto.id WHERE vaihtoehto.aanestys = :poll GROUP BY vaihtoehto.id ORDER BY votes DESC LIMIT 1');
+        $query->execute(array('poll' => $poll_id));
+        $row = $query->fetch();
+        if($row){
+            return $row['option'];
+        }
+        return null;
+    }
+
     
     
 }

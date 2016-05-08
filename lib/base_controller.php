@@ -20,4 +20,9 @@
 
     }
 
+    public static function check_user_isadmin(){
+      $user = get_user_logged_in();
+      return $user->admin;
+    }
+
   }
