@@ -47,6 +47,7 @@
           <th>Nimi</th>
           <th>Lisätieto</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -56,9 +57,16 @@
             <tr>
                 <td><input class="form-control" name="name" type="text" value="{{option.name}}"></td>
                 <td><input class="form-control" name="desc" type="text" value="{{option.description}}"></td>
-                <td><input class="btn btn-default" type="submit" value="Tallenna"></td>
+                <td>
+                  <input class="btn btn-default" type="submit" value="Tallenna">
+                  </form>
+                </td>
+                <td>
+                  <form method="post" action="{{base_path}}/aanestys/option/{{option.id}}/delete">
+                    <input class="btn btn-danger" type="submit" value="Poista">
+                  </form> 
+                </td>
             </tr>
-            </form>
            {% endfor %}
           <form method="post" action="{{base_path}}/aanestys/option/new">
           <input type="hidden" name="poll_id" value="{{attributes.id}}">
@@ -66,6 +74,7 @@
                 <td><input class="form-control" name="name" type="text" placeholder="Uusi vaihtoehto"></td>
                 <td><input class="form-control" name="desc" type="text" placeholder="Kuvaus"></td>
                 <td><input class="btn btn-default" type="submit" value="Lisää uusi vaihtoehto"></td>
+                <td></td>
             </tr>
             </form>
       </tbody>

@@ -71,9 +71,13 @@
     OptionController::newOption();
   });
 
-  $routes->post('/aanestys/option/:option_id/edit', function($option_id){
+  $routes->post('/aanestys/option/:option_id/edit', 'check_logged_in', function($option_id){
     OptionController::update($option_id);
   });
+
+  $routes->post('/aanestys/option/:option_id/delete', 'check_logged_in', function($option_id){
+    OptionController::delete($option_id);
+  });  
 
   /* 
   $routes->get('/suunnitelmat/etusivu', 'check_logged_in', function(){

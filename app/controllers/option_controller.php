@@ -36,5 +36,28 @@ class OptionController extends BaseController {
 		}
 	}
 
+	public static function delete($option_id){
+		$user_id = $_SESSION['user'];
+        $user = User::find($user_id);
+        $option = Option::find($option_id);
+        if($option){
+	        $poll = Poll::find($option->poll);
+	       	if($user->id == $poll->creator || $user->admin){
+	       		if(!$poll->isOpen() || $poll->isClosed()){ // äänestys ei ole vielä alkanut
+	       			$option->delete();
+	       			Redirect::to('/aanestys/' . $poll->id . '/edit');
+	       		}
+	       		else {
+	       			$errors = array('Keskeneräisen äänestyksen vaihtoehtoja ei voi poistaa!');
+	       			Redirect::to('/aanestys/' . $poll->id . '/edit', array('errors' => $errors));
+	       		}
+	       	} else {
+	       		$errors = array('Vain äänestyksen tekijä tai ylläpitäjä voi muokata äänestystä!');
+	       		Redirect::to('/aanestys/' . $poll->id . '/edit', array('errors' => $errors));
+	       	}
+       	} else {
+       		Redirect::to('/aanestys/listaus');
+       	}
+	}
 	
 }

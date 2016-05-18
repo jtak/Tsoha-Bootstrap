@@ -99,9 +99,6 @@ class Poll extends BaseModel {
     }
 
     public function delete(){
-        //tähän ensin haku kaikille aanestyksen vaihtoehdoille ja niiden poisto ensin jotta viittaukset eivät hajoa.
-        //Lisäksi äänestystietojen poisto
-
         $query = DB::connection()->prepare('DELETE FROM Aanestys WHERE id = :id');
         $query->execute(array('id' => $this->id));
     }
